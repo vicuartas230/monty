@@ -13,7 +13,10 @@ char **str_to_array(char *str, unsigned int lines)
 
     arr = malloc((lines + 1) * sizeof(char *));
     if (!arr)
-        return (NULL);
+    {
+        printf("Error: malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
     while (i < lines)
     {
         if (!i)

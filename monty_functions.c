@@ -11,6 +11,7 @@ int arg_checker(char *bytecode)
     int fd = 0, lines = 0, i = 0;
     ssize_t chars = 0;
     char buffer[BUFSIZ], **opcode = NULL, *opc = NULL, *arg = NULL;
+    stack_t *head = NULL;
 
     fd = open(bytecode, O_RDONLY);
     if (fd == -1)
@@ -26,9 +27,13 @@ int arg_checker(char *bytecode)
     {
         opc = separate_opc(opcode[i]);
         arg = separate_arg(opcode[i]);
-        arg_interpreter(opc, atoi(arg));
+        arg_interpreter(&head, opc, _atoi(arg));
+        free(opc);
+        free(arg);
         i++;
     }
+    free_arr(opcode);
+    free_stack(head);
     return (0);
 }
 
@@ -38,14 +43,14 @@ int arg_checker(char *bytecode)
  * Return:
  */
 
-int arg_interpreter(char *line, unsigned int line_number)
+int arg_interpreter(stack_t **head, char *line, unsigned int line_number)
 {
     unsigned int i = 0;
     instruction_t codes[] = {
         {"push", push_element},
         {"pall", pall_element},
-        /* {"pint", pint_element},
-        {"pop", pop_element},
+        {"pint", pint_element},
+        /* {"pop", pop_element},
         {"swap", swap_element},
         {"add", add_element},
         {"nop", nop_element}, */
@@ -54,11 +59,14 @@ int arg_interpreter(char *line, unsigned int line_number)
 
     while (codes[i].opcode)
     {
-        if (!_strncmp(codes[i].opcode, line, 3))
-            {
-                f(line, line_number);
-            }
+        if (!_strncmp(codes[i].opcode, line, 4))
+        {
+            codes[i].f(head, line_number);
+            break;
+        }
         i++;
     }
+    if (!codes[i].opcode)
+        return (-1);
     return (0);
 }

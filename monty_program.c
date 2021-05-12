@@ -7,8 +7,13 @@
  * Return: 0 (Success)
  */
 
-int main(int ac, char **av)
+int main(/* int ac, char **av */)
 {
+    int ac = 2;
+    char *av[2];
+
+    av[0] = "./monty";
+    av[1] = "bytecodes/00.m";
     if (ac != 2)
     {
         printf("USAGE: monty file\n");
