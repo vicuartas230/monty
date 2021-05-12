@@ -2,25 +2,25 @@
 
 /**
  * separate_opc - This function separates the command in each line.
- * @lines: String to separate.
+ * @str: String to separate.
  * Return: The string separated.
  */
 
 char *separate_opc(char *str)
 {
-    unsigned int i = 0;
-    char *new = NULL;
+	unsigned int i = 0;
+	char *new = NULL;
 
-    new = malloc((_strlen(str) + 1) * sizeof(char));
-    if (!new)
-    {
-        printf("Error: malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
-    while (str[i] && str[i] != ' ')
-        new[i] = str[i], i++;
-    new[i] = '\0';
-    return (new);
+	new = malloc((_strlen(str) + 1) * sizeof(char));
+	if (!new)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	while (str[i] && str[i] != ' ')
+		new[i] = str[i], i++;
+	new[i] = '\0';
+	return (new);
 }
 
 /**
@@ -31,29 +31,29 @@ char *separate_opc(char *str)
 
 char *separate_arg(char *str)
 {
-    unsigned int i = 0, j = 0;
-    char *new = NULL;
+	unsigned int i = 0, j = 0;
+	char *new = NULL;
 
-    while(str[i] && str[i] != ' ')
-        i++;
-    i++;
-    new = malloc((_strlen(str) - i + 1) * sizeof(char));
-    if (!new)
-    {
-        printf("Error: malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
-    while(str[i])
-    {
-        if (str[i] < '0' || str[i] > '9')
-        {
-            printf("L<line_number>: usage: push integer\n");
-            exit(EXIT_FAILURE);
-        }
-        new[j] = str[i], j++, i++;
-    }
-    new[j] = '\0';
-    return (new);
+	while (str[i] && str[i] != ' ')
+		i++;
+	i++;
+	new = malloc((_strlen(str) - i + 1) * sizeof(char));
+	if (!new)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+		{
+			printf("L<line_number>: usage: push integer\n");
+			exit(EXIT_FAILURE);
+		}
+		new[j] = str[i], j++, i++;
+	}
+	new[j] = '\0';
+	return (new);
 }
 
 /**
@@ -64,13 +64,13 @@ char *separate_arg(char *str)
 
 int _atoi(char *str)
 {
-    unsigned int i = strlen(str) - 1, j = 0, num = 0;
+	unsigned int i = strlen(str) - 1, j = 0, num = 0;
 
-    if (!str[j])
-        return (num);
-    while (str[j])
-        num += (str[i] - '0') * _pow(10, j), i--, j++;
-    return (num);
+	if (!str[j])
+		return (num);
+	while (str[j])
+		num += (str[i] - '0') * _pow(10, j), i--, j++;
+	return (num);
 }
 
 /**
@@ -82,15 +82,15 @@ int _atoi(char *str)
 
 int _pow(unsigned int x, unsigned int y)
 {
-  int res = 1;
-  unsigned int i = 0;
-  
-  while (i < y)
-  {
-    res *= x;
-    i++;
-  }
-  return (res);
+	int res = 1;
+	unsigned int i = 0;
+
+	while (i < y)
+	{
+		res *= x;
+		i++;
+	}
+	return (res);
 }
 
 /**
@@ -101,12 +101,12 @@ int _pow(unsigned int x, unsigned int y)
 
 void free_stack(stack_t *head)
 {
-    stack_t *tmp = head;
+	stack_t *tmp = head;
 
-    while(tmp)
-    {
-        tmp = tmp->next;
-        free(head);
-        head = tmp;
-    }
+	while (tmp)
+	{
+		tmp = tmp->next;
+		free(head);
+		head = tmp;
+	}
 }

@@ -7,23 +7,18 @@
  * Return: 0 (Success)
  */
 
-int main(/* int ac, char **av */)
+int main(int ac, char **av)
 {
-    int ac = 2;
-    char *av[2];
-
-    av[0] = "./monty";
-    av[1] = "bytecodes/00.m";
-    if (ac != 2)
-    {
-        printf("USAGE: monty file\n");
-        exit(EXIT_FAILURE);
-    }
-    if (access(av[1], F_OK) == -1)
-    {
-        printf("Error: Can't open file %s\n", av[1]);
-        exit(EXIT_FAILURE);
-    }
-    arg_checker(av[1]);
-    return (0);
+	if (ac != 2)
+	{
+		printf("USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (access(av[1], F_OK) == -1)
+	{
+		printf("Error: Can't open file %s\n", av[1]);
+		exit(EXIT_FAILURE);
+	}
+	arg_checker(av[1]);
+	return (0);
 }

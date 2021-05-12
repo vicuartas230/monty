@@ -1,33 +1,34 @@
 #include "monty.h"
 
 /**
- * char_to_array - This function converts a string to an array of pointers.
+ * str_to_array - This function converts a string to an array of pointers.
  * @str: The string to convert.
+ * @lines: The number of lines to convert.
  * Return: The array of pointers.
  */
 
 char **str_to_array(char *str, unsigned int lines)
 {
-    char **arr = NULL, *token = NULL;
-    unsigned int i = 0;
+	char **arr = NULL, *token = NULL;
+	unsigned int i = 0;
 
-    arr = malloc((lines + 1) * sizeof(char *));
-    if (!arr)
-    {
-        printf("Error: malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
-    while (i < lines)
-    {
-        if (!i)
-            token = strtok(str, "\n");
-        else
-            token = strtok(NULL, "\n");
-        arr[i] = _strdup(token);
-        i++;
-    }
-    arr[i] = NULL;
-    return (arr);
+	arr = malloc((lines + 1) * sizeof(char *));
+	if (!arr)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	while (i < lines)
+	{
+		if (!i)
+			token = strtok(str, "\n");
+		else
+			token = strtok(NULL, "\n");
+		arr[i] = _strdup(token);
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
 }
 
 /**

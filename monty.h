@@ -20,9 +20,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -35,8 +35,8 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 int arg_checker(char *bytecode);
@@ -49,6 +49,10 @@ int _strncmp(const char *s1, const char *s2, size_t n);
 void push_element(stack_t **head, unsigned int line_number);
 void pall_element(stack_t **head, unsigned int line_number);
 void pint_element(stack_t **head, unsigned int line_number);
+void pop_element(stack_t **head, unsigned int line_number);
+void swap_element(stack_t **head, unsigned int line_number);
+void add_element(stack_t **head, unsigned int line_number);
+void nop_element(stack_t **head, unsigned int line_number);
 char *separate_arg(char *str);
 char *separate_opc(char *str);
 int _atoi(char *str);
