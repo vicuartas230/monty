@@ -12,12 +12,12 @@ void push_element(stack_t **head, unsigned int line_number)
 	stack_t *new = NULL;
 
 	new = malloc(sizeof(stack_t));
-	if (!new)
+	if (!line_number)
 	{
 		printf("Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new->n = line_number;
+	new->n = data;
 	new->next = NULL;
 	new->prev = NULL;
 	if (*head == NULL)
@@ -38,12 +38,11 @@ void push_element(stack_t **head, unsigned int line_number)
  * Return: Nothing.
  */
 
-void pall_element(stack_t **head, __attribute__(
-	(unused)) unsigned int line_number)
+void pall_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
 
-	if (!tmp)
+	if (!line_number)
 		return;
 	while (tmp)
 	{
@@ -60,10 +59,9 @@ void pall_element(stack_t **head, __attribute__(
  * Return: Nothing.
  */
 
-void pint_element(stack_t **head, __attribute__(
-	(unused)) unsigned int line_number)
+void pint_element(stack_t **head, unsigned int line_number)
 {
-	if (!*head)
+	if (!line_number)
 	{
 		printf("L<line_number>: can't pint, stack empty\n");
 		exit(EXIT_FAILURE);
@@ -78,12 +76,11 @@ void pint_element(stack_t **head, __attribute__(
  * Return: Nothing.
  */
 
-void pop_element(stack_t **head, __attribute__(
-	(unused)) unsigned int line_number)
+void pop_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
 
-	if (!*head)
+	if (!line_number)
 	{
 		printf("L<line_number>: can't pop an empty stack\n");
 		exit(EXIT_FAILURE);

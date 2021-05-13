@@ -8,33 +8,38 @@
 
 int arg_checker(char *bytecode)
 {
-	int fd = 0, lines = 0, i = 0;
+	int words = 0, i = 0;
 	ssize_t chars = 0;
-	char buffer[BUFSIZ], **opcode = NULL, *opc = NULL, *arg = NULL;
+	size_t n = 0;
+	char *buffer = NULL, **opcode = NULL;
 	stack_t *head = NULL;
+	FILE *scr;
 
-	fd = open(bytecode, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	chars = read(fd, buffer, BUFSIZ);
-	if (chars == -1)
-		return (-1);
-	lines = count_lines(buffer, "\n");
-	opcode = str_to_array(buffer, lines);
-	if (!opcode)
-		return (-1);
-	while (opcode[i])
+	scr = fopen(bytecode, "r");
+	if (!scr)
 	{
-		opc = separate_opc(opcode[i]);
-		arg = separate_arg(opcode[i]);
-		arg_interpreter(&head, opc, _atoi(arg));
-		free(opc);
-		free(arg);
+		printf("Error: Can't open file %s\n", bytecode);
+		exit(EXIT_FAILURE);
+	}
+	while ((chars = getline(&buffer, &n, scr)) != EOF)
+	{
+		buffer[chars - 1] = ' ';
+		words = count_words(buffer, " ");
+		if (words > 2)
+		{
+			printf("L%d: unknown instruction %s\n", i + 1, buffer);
+			free(buffer);
+			fclose(scr);
+			exit(EXIT_FAILURE);
+		}
+		opcode = str_to_array(buffer, words);
+		arg_interpreter(&head, opcode, i + 1);
+		free_arr(opcode);
 		i++;
 	}
-	free_arr(opcode);
-	if (head)
-		free_stack(head);
+	free_stack(head);
+	free(buffer);
+	fclose(scr);
 	return (0);
 }
 
@@ -46,7 +51,7 @@ int arg_checker(char *bytecode)
  * Return: 0 (Success)
  */
 
-int arg_interpreter(stack_t **head, char *line, unsigned int line_number)
+int arg_interpreter(stack_t **head, char **line, unsigned int line_number)
 {
 	unsigned int i = 0;
 	instruction_t codes[] = {
@@ -62,14 +67,19 @@ int arg_interpreter(stack_t **head, char *line, unsigned int line_number)
 
 	while (codes[i].opcode)
 	{
-		if (!_strncmp(codes[i].opcode, line, 3))
+		if (!_strncmp(codes[i].opcode, line[0], _strlen(line[0])))
 		{
+			if (!strcmp("push", line[0]))
+				data = _atoi(line[1]);
 			codes[i].f(head, line_number);
 			break;
 		}
 		i++;
 	}
 	if (!codes[i].opcode)
-		return (-1);
+	{
+		printf("L%d: unknown instruction %s\n", line_number, line[0]);
+		exit(EXIT_FAILURE);
+	}
 	return (0);
 }

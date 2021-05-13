@@ -3,27 +3,27 @@
 /**
  * str_to_array - This function converts a string to an array of pointers.
  * @str: The string to convert.
- * @lines: The number of lines to convert.
+ * @words: The number of words to convert.
  * Return: The array of pointers.
  */
 
-char **str_to_array(char *str, unsigned int lines)
+char **str_to_array(char *str, unsigned int words)
 {
 	char **arr = NULL, *token = NULL;
 	unsigned int i = 0;
 
-	arr = malloc((lines + 1) * sizeof(char *));
+	arr = malloc((words + 1) * sizeof(char *));
 	if (!arr)
 	{
 		printf("Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	while (i < lines)
+	while (i < words)
 	{
 		if (!i)
-			token = strtok(str, "\n");
+			token = strtok(str, " \n\t");
 		else
-			token = strtok(NULL, "\n");
+			token = strtok(NULL, " \n\t");
 		arr[i] = _strdup(token);
 		i++;
 	}
@@ -57,24 +57,24 @@ char *_strdup(const char *s)
 }
 
 /**
- * count_lines - Function that counts the words writed in terminal
+ * count_words - Function that counts the words writed in terminal
  * @buff: to temporarily store the words
  * @delim: words delimiter
  * Return: the number of words
  */
-int count_lines(char *buff, char *delim)
+int count_words(char *buff, char *delim)
 {
 	int step = 0, i = 0;
 	unsigned int words = 0;
 
 	while (buff[i])
 	{
-		if (buff[i] == delim[0])
+		if (buff[i] == delim[0] || buff[i] == '\n' || buff[i] == '\t')
 			step = 0;
 		else if (step == 0)
 		{
 			step = 1;
-			words++;
+		 words++;
 		}
 		i++;
 	}

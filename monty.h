@@ -39,11 +39,13 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+int data;
+
 int arg_checker(char *bytecode);
-int arg_interpreter(stack_t **head, char *line, unsigned int line_number);
-char **str_to_array(char *str, unsigned int lines);
+int arg_interpreter(stack_t **head, char **line, unsigned int line_number);
+char **str_to_array(char *str, unsigned int words);
 char *_strdup(const char *s);
-int count_lines(char *buff, char *delim);
+int count_words(char *buff, char *delim);
 int _strlen(const char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);
 void push_element(stack_t **head, unsigned int line_number);
@@ -53,8 +55,6 @@ void pop_element(stack_t **head, unsigned int line_number);
 void swap_element(stack_t **head, unsigned int line_number);
 void add_element(stack_t **head, unsigned int line_number);
 void nop_element(stack_t **head, unsigned int line_number);
-char *separate_arg(char *str);
-char *separate_opc(char *str);
 int _atoi(char *str);
 int _pow(unsigned int x, unsigned int y);
 void free_stack(stack_t *head);

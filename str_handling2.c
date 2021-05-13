@@ -1,62 +1,6 @@
 #include "monty.h"
 
 /**
- * separate_opc - This function separates the command in each line.
- * @str: String to separate.
- * Return: The string separated.
- */
-
-char *separate_opc(char *str)
-{
-	unsigned int i = 0;
-	char *new = NULL;
-
-	new = malloc((_strlen(str) + 1) * sizeof(char));
-	if (!new)
-	{
-		printf("Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	while (str[i] && str[i] != ' ')
-		new[i] = str[i], i++;
-	new[i] = '\0';
-	return (new);
-}
-
-/**
- * separate_arg - This function separates the argument of the opcode.
- * @str: The string to separate.
- * Return: The string without the command.
- */
-
-char *separate_arg(char *str)
-{
-	unsigned int i = 0, j = 0;
-	char *new = NULL;
-
-	while (str[i] && str[i] != ' ')
-		i++;
-	i++;
-	new = malloc((_strlen(str) - i + 1) * sizeof(char));
-	if (!new)
-	{
-		printf("Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-		{
-			printf("L<line_number>: usage: push integer\n");
-			exit(EXIT_FAILURE);
-		}
-		new[j] = str[i], j++, i++;
-	}
-	new[j] = '\0';
-	return (new);
-}
-
-/**
  * _atoi - This function converts a string in a number.
  * @str: The string to convert.
  * Return: The number converted.
@@ -64,12 +8,23 @@ char *separate_arg(char *str)
 
 int _atoi(char *str)
 {
-	unsigned int i = strlen(str) - 1, j = 0, num = 0;
+	int i = strlen(str) - 1, j = 0, num = 0;
 
 	if (!str[j])
 		return (num);
 	while (str[j])
-		num += (str[i] - '0') * _pow(10, j), i--, j++;
+	{
+		if (str[j] == '-')
+		{
+			j++;
+			continue;
+		}
+		num += (str[i] - '0') * _pow(10, j);
+		i--;
+		j++;
+	}
+	if (str[0] == '-')
+		num = -num / 10;
 	return (num);
 }
 
@@ -109,4 +64,22 @@ void free_stack(stack_t *head)
 		free(head);
 		head = tmp;
 	}
+}
+
+/**
+ * free_arr - This function frees an array of pointers.
+ * @str: The start of the stack to free.
+ * Return: Nothing.
+ */
+
+void free_arr(char **str)
+{
+	unsigned int i = 0;
+
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
