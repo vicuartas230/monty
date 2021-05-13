@@ -131,7 +131,6 @@ void pop_element(stack_t **head, unsigned int line_number)
 void swap_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
-	unsigned int i = 0;
 
 	if (line_number < 2)
 	{
