@@ -6,24 +6,31 @@
  * Return: The number converted.
  */
 
-int _atoi(char *str)
+int _atoi(unsigned int line_number, stack_t **head)
 {
-	int i = strlen(str) - 1, j = 0, num = 0;
+	int i = strlen(data.op_c[1]) - 1, j = 0, num = 0;
 
-	if (!str[j])
-		return (num);
-	while (str[j])
+	while (data.op_c[1][j])
 	{
-		if (str[j] == '-')
+		if (data.op_c[1][j] == '-')
 		{
 			j++;
 			continue;
 		}
-		num += (str[i] - '0') * _pow(10, j);
+		if (data.op_c[1][j] < '0' || data.op_c[1][j] > '9')
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			free(data.buffer);
+			free_arr(data.op_c);
+			fclose(data.scr);
+			free_stack(*head);
+			exit(EXIT_FAILURE);
+		}
+		num += (data.op_c[1][i] - '0') * _pow(10, j);
 		i--;
 		j++;
 	}
-	if (str[0] == '-')
+	if (data.op_c[1][0] == '-')
 		num = -num / 10;
 	return (num);
 }

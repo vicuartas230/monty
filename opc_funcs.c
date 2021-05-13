@@ -14,10 +14,23 @@ void push_element(stack_t **head, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	if (!line_number)
 	{
-		printf("Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-	new->n = data;
+	if (!data.op_c[1])
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}				 
+	new->n = _atoi(line_number, head);
 	new->next = NULL;
 	new->prev = NULL;
 	if (*head == NULL)
@@ -63,7 +76,11 @@ void pint_element(stack_t **head, unsigned int line_number)
 {
 	if (!line_number)
 	{
-		printf("L<line_number>: can't pint, stack empty\n");
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*head)->n);
@@ -82,7 +99,11 @@ void pop_element(stack_t **head, unsigned int line_number)
 
 	if (!line_number)
 	{
-		printf("L<line_number>: can't pop an empty stack\n");
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	else if (!tmp->next)
@@ -121,6 +142,10 @@ void swap_element(stack_t **head, __attribute__(
 	if (i < 2)
 	{
 		printf("L<line_number>: can't swap, stack too short\n");
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	tmp = *head;
