@@ -40,7 +40,10 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * 
+ * struct data_s - structure to free in opc funtions.
+ * @buffer: The space in memory that storages readed lines.
+ * @op_c: The opcodes readed.
+ * @scr: The file opened.
  */
 typedef struct data_s
 {

@@ -39,7 +39,6 @@ int arg_checker(char *bytecode)
 /**
  * arg_interpreter - This function interpretes the data.op_c entered.
  * @head: The start of the stack.
- * @line: The command to interpretate.
  * @line_number: The line number of the text.
  * Return: 0 (Success)
  */

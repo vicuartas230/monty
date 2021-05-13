@@ -29,7 +29,7 @@ void push_element(stack_t **head, unsigned int line_number)
 		fclose(data.scr);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
-	}				 
+	}
 	new->n = _atoi(line_number, head);
 	new->next = NULL;
 	new->prev = NULL;

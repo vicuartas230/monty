@@ -2,7 +2,8 @@
 
 /**
  * _atoi - This function converts a string in a number.
- * @str: The string to convert.
+ * @line_number: The number of bytecode line.
+ * @head: The start of the stack.
  * Return: The number converted.
  */
 
