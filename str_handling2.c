@@ -10,6 +10,15 @@ int _atoi(unsigned int line_number, stack_t **head)
 {
 	int i = strlen(data.op_c[1]) - 1, j = 0, num = 0;
 
+	if (data.op_c[1][0] == '-' && _strlen(data.op_c[1]) == 1)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
 	while (data.op_c[1][j])
 	{
 		if (data.op_c[1][j] == '-')
