@@ -128,20 +128,14 @@ void pop_element(stack_t **head, unsigned int line_number)
  * Return: Nothing.
  */
 
-void swap_element(stack_t **head, __attribute__(
-	(unused))unsigned int line_number)
+void swap_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
 	unsigned int i = 0;
 
-	while (tmp)
+	if (line_number < 2)
 	{
-		tmp = tmp->next;
-		i++;
-	}
-	if (i < 2)
-	{
-		printf("L<line_number>: can't swap, stack too short\n");
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		free(data.buffer);
 		free_arr(data.op_c);
 		fclose(data.scr);
