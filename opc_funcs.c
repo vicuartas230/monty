@@ -74,7 +74,7 @@ void pall_element(stack_t **head, unsigned int line_number)
 
 void pint_element(stack_t **head, unsigned int line_number)
 {
-	if (!line_number)
+	if (!*head)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		free(data.buffer);
@@ -97,7 +97,7 @@ void pop_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
 
-	if (!line_number)
+	if (!tmp)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		free(data.buffer);
@@ -131,8 +131,12 @@ void pop_element(stack_t **head, unsigned int line_number)
 void swap_element(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
+	unsigned int i = 0;
 
-	if (line_number < 2)
+	while (tmp)
+		i++, tmp = tmp->next;
+	tmp = *head;
+	if (i < 2)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		free(data.buffer);

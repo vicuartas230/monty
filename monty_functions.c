@@ -24,7 +24,10 @@ int arg_checker(char *bytecode)
 		data.buffer[chars - 1] = ' ';
 		words = count_words(data.buffer, " ");
 		if (!words)
+		{
+			i++;
 			continue;
+		}
 		data.op_c = str_to_array(data.buffer, words);
 		arg_interpreter(&head, i + 1);
 		free_arr(data.op_c);
