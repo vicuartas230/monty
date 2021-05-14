@@ -59,6 +59,7 @@ int arg_interpreter(stack_t **head, unsigned int line_number)
 		{"nop", nop_element},
 		{"sub", sub_element},
 		{"div", div_element},
+		{"mul", mul_element},
 		{NULL, NULL},
 	};
 
