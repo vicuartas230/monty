@@ -57,6 +57,7 @@ int arg_interpreter(stack_t **head, unsigned int line_number)
 		{"swap", swap_element},
 		{"add", add_element},
 		{"nop", nop_element},
+		{"sub", sub_element},
 		{NULL, NULL},
 	};
 
