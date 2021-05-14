@@ -145,11 +145,22 @@ void swap_element(stack_t **head, unsigned int line_number)
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-	tmp = *head;
-	*head = tmp->next;
-	tmp->next->prev = NULL;
-	tmp->prev = *head;
-	tmp->next = tmp->prev->next;
-	tmp->prev->next = tmp;
-	tmp->next->prev = tmp;
+	if (i == 2)
+	{
+		tmp->next->next = tmp;
+		tmp->next->prev = NULL;
+		tmp->prev = tmp->next;
+		*head = tmp->next;
+		tmp->next = NULL;
+	}
+	else
+	{
+		tmp = *head;
+		*head = tmp->next;
+		tmp->next->prev = NULL;
+		tmp->prev = *head;
+		tmp->next = tmp->prev->next;
+		tmp->prev->next = tmp;
+		tmp->next->prev = tmp;
+	}
 }
