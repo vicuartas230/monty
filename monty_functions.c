@@ -16,7 +16,7 @@ int arg_checker(char *bytecode)
 	data.scr = fopen(bytecode, "r");
 	if (!data.scr)
 	{
-		printf("Error: Can't open file %s\n", bytecode);
+		fprintf(stderr, "Error: Can't open file %s\n", bytecode);
 		exit(EXIT_FAILURE);
 	}
 	while ((chars = getline(&data.buffer, &n, data.scr)) != EOF)
@@ -31,6 +31,7 @@ int arg_checker(char *bytecode)
 		data.op_c = str_to_array(data.buffer, words);
 		if (data.op_c[0][0] == '#')
 		{
+			printf("%c\n", data.op_c[0][0]);
 			i++;
 			continue;
 		}
