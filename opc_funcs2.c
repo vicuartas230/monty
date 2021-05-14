@@ -20,7 +20,11 @@ void add_element(stack_t **head, unsigned int line_number)
 	}
 	if (i < 2)
 	{
-		printf("L<line_number>: can't add, stack too short\n");
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		free(data.buffer);
+		free_arr(data.op_c);
+		fclose(data.scr);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	tmp = *head;
