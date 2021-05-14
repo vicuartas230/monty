@@ -69,6 +69,7 @@ void swap_element(stack_t **head, unsigned int line_number);
 void add_element(stack_t **head, unsigned int line_number);
 void nop_element(stack_t **head, unsigned int line_number);
 void sub_element(stack_t **head, unsigned int line_number);
+void div_element(stack_t **head, unsigned int line_number);
 int _atoi(unsigned int line_number, stack_t **head);
 int _pow(unsigned int x, unsigned int y);
 void free_stack(stack_t *head);
