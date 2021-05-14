@@ -29,6 +29,11 @@ int arg_checker(char *bytecode)
 			continue;
 		}
 		data.op_c = str_to_array(data.buffer, words);
+		if (data.op_c[0][0] == '#')
+		{
+			i++;
+			continue;
+		}
 		arg_interpreter(&head, i + 1);
 		free_arr(data.op_c);
 		i++;
